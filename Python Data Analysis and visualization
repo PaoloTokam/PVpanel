@@ -1,0 +1,98 @@
+import serial
+import matplotlib.pyplot as plt
+from collections import deque
+
+# Open the serial port
+ser = serial.Serial('import serial
+import matplotlib.pyplot as plt
+from collections import deque
+
+# Open the serial port
+ser = serial.Serial('WelcometoPaolosworld', 9600)  # Replace 'COMX' with your actual serial port
+
+# Initialize data lists
+data = []
+time = []
+
+# Create a deque with a fixed maximum length to store recent data
+max_data_points = 100
+data_buffer = deque(maxlen=max_data_points)
+
+# Create a function to update the plot
+def update_plot():
+    plt.clf()
+    plt.plot(time, data, label='Panel Data')
+    plt.xlabel('Time')
+    plt.ylabel('Analog Reading')
+    plt.title('Solar Panel Data Visualization')
+    plt.legend()
+    plt.pause(0.1)
+
+# Initialize the plot
+plt.ion()  # Turn on interactive mode
+plt.figure(figsize=(10, 6))
+
+try:
+    while True:
+        # Read data from the serial port
+        line = ser.readline().decode().strip()
+        if line.startswith("DATA,"):
+            reading = float(line.split(",")[1])
+            data_buffer.append(reading)
+            time.append(len(data_buffer))
+            data.append(reading)
+
+            if len(data_buffer) >= max_data_points:
+                time.pop(0)
+                data.pop(0)
+
+            # Update the plot
+            update_plot()
+
+except KeyboardInterrupt:
+    ser.close()
+    print("Serial port closed.")
+, 9600)  # Replace 'COMX' with your actual serial port
+
+# Initialize data lists
+data = []
+time = []
+
+# Create a deque with a fixed maximum length to store recent data
+max_data_points = 100
+data_buffer = deque(maxlen=max_data_points)
+
+# Create a function to update the plot
+def update_plot():
+    plt.clf()
+    plt.plot(time, data, label='Panel Data')
+    plt.xlabel('Time')
+    plt.ylabel('Analog Reading')
+    plt.title('Solar Panel Data Visualization')
+    plt.legend()
+    plt.pause(0.1)
+
+# Initialize the plot
+plt.ion()  # Turn on interactive mode
+plt.figure(figsize=(10, 6))
+
+try:
+    while True:
+        # Read data from the serial port
+        line = ser.readline().decode().strip()
+        if line.startswith("DATA,"):
+            reading = float(line.split(",")[1])
+            data_buffer.append(reading)
+            time.append(len(data_buffer))
+            data.append(reading)
+
+            if len(data_buffer) >= max_data_points:
+                time.pop(0)
+                data.pop(0)
+
+            # Update the plot
+            update_plot()
+
+except KeyboardInterrupt:
+    ser.close()
+    print("Serial port closed.")
